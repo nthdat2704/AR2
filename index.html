@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden">
+    <style>
+      button,
+      canvas {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%);
+      }
+      .control {
+        display: flex;
+      }
+      #video {
+        visibility: hidden;
+      }
+    </style>
+    <a-scene
+      embedded
+      loading-screen="enabled: false;"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.812896009781136; longitude: 106.67485758662227;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.81276954960108; longitude: 106.67520090937617;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.812369092012549; longitude: 106.67496487498283;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.81196863388947; longitude: 106.67625233531001;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.812074017657903; longitude: 106.67547985911372;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.813254313335124; longitude: 106.67625233531001;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.812997177629521; longitude: 106.6769175231457;"
+      ></a-image>
+      <a-image
+        src="https://www.shutterstock.com/image-vector/pikachu-vector-art-illustration-on-260nw-2163481879.jpg"
+        look-at="[gps-camera]"
+        scale="10 10 10"
+        gps-entity-place="latitude: 10.812487121801798; longitude: 106.67719647288325;"
+      ></a-image>
+
+      <a-camera
+        gps-camera="simulateLatitude:10.810613395264344; simulateLongitude:106.67371999472383;"
+        rotation-reader
+      ></a-camera>
+    </a-scene>
+    <video id="video" width="320" height="240" autoplay></video>
+    <canvas id="canvas" width="320" height="240"></canvas>
+    <div class="control">
+      <button id="click-photo">Click Photo</button>
+    </div>
+    <script>
+      let camera_button = document.querySelector("#start-camera");
+      let video = document.querySelector("#video");
+      let click_button = document.querySelector("#click-photo");
+      let canvas = document.querySelector("#canvas");
+      const test = async () => {
+        let stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false,
+        });
+        video.srcObject = stream;
+      };
+      test();
+
+      click_button.addEventListener("click", function () {
+        canvas
+          .getContext("2d")
+          .drawImage(video, 0, 0, canvas.width, canvas.height);
+        let image_data_url = canvas.toDataURL("image/jpeg");
+
+        // data url of the image
+        console.log(image_data_url);
+      });
+    </script>
+  </body>
+</html>
